@@ -194,15 +194,20 @@ function loadUploadedBooks() {
     // Merge uploaded books with existing database
     if (uploadedBooks.length > 0) {
         uploadedBooks.forEach(book => {
-            // Check if book already exists
-            const exists = booksDatabase.find(b => b.id === book.id);
-            if (!exists) {
-                booksDatabase.push(book);
+            // Ensure all required fields are present
+            if (book.id && book.title && book.author && book.category) {
+                // Check if book already exists
+                const exists = booksDatabase.find(b => b.id === book.id);
+                if (!exists) {
+                    booksDatabase.push(book);
+                }
             }
         });
         
         // Update filtered books
         filteredBooks = [...booksDatabase];
+        
+        console.log('Uploaded books loaded:', uploadedBooks.length);
     }
 }
 

@@ -117,10 +117,10 @@ function handleFormSubmit() {
     submitBtn.disabled = false;
     submitBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Book';
 
-    // Redirect to home after 2 seconds
+    // Redirect to home and force refresh
     setTimeout(() => {
-        window.location.href = 'index.html';
-    }, 2000);
+        window.location.href = 'index.html?refresh=' + Date.now();
+    }, 1500);
 }
 
 function saveBookToStorage(book) {
