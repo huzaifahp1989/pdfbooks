@@ -102,39 +102,25 @@ function handleFormSubmit() {
         dateAdded: new Date().toISOString()
     };
 
-    // Simulate file upload (in real scenario, upload to server)
-    // For demo, we'll use FileReader to convert to base64 or just store the filename
+    // Save book metadata immediately (instant upload)
+    newBook.pdfUrl = `books/${sanitizeFileName(pdfFile.name)}`;
+    
+    // Save to localStorage
+    saveBookToStorage(newBook);
+    
+    // Show success message
+    showSuccess();
+    
+    // Reset form
+    form.reset();
+    document.getElementById('fileInfo').classList.remove('active');
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Book';
+
+    // Redirect to home after 2 seconds
     setTimeout(() => {
-        // In a real application, you would upload to a server here
-        // For now, we'll store the book data in localStorage
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            // Store file as base64 (note: this is for demo only, not recommended for large files)
-            newBook.pdfData = e.target.result;
-            newBook.pdfUrl = `books/${sanitizeFileName(pdfFile.name)}`;
-            
-            // Save to localStorage
-            saveBookToStorage(newBook);
-            
-            // Show success message
-            showSuccess();
-            
-            // Reset form
-            form.reset();
-            document.getElementById('fileInfo').classList.remove('active');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Book';
-
-            // Redirect to home after 2 seconds
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 2000);
-        };
-
-        // Read file as data URL (base64)
-        reader.readAsDataURL(pdfFile);
-    }, 1500);
+        window.location.href = 'index.html';
+    }, 2000);
 }
 
 function saveBookToStorage(book) {
