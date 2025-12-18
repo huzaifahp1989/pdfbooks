@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic Books Library</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-book-quran"></i>
+                <h1>Islamic Books Library</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#authors">Authors</a></li>
+                    <li><a href="upload.html">Upload Book</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Discover Islamic Knowledge</h2>
+                <p>Explore our vast collection of Islamic books across various topics</p>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search books, authors, topics...">
+                    <button id="searchBtn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="categories">
+        <div class="container">
+            <h2 class="section-title">Browse by Category</h2>
+            <div class="category-grid">
+                <div class="category-card" data-category="quran">
+                    <i class="fas fa-book-quran"></i>
+                    <h3>Quran & Tafsir</h3>
+                    <p>Quranic studies and interpretations</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="hadith">
+                    <i class="fas fa-scroll"></i>
+                    <h3>Hadith</h3>
+                    <p>Prophetic traditions and sayings</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="salah">
+                    <i class="fas fa-hands-praying"></i>
+                    <h3>Salah (Prayer)</h3>
+                    <p>Guides on Islamic prayer</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="duas">
+                    <i class="fas fa-hands"></i>
+                    <h3>Duas (Supplications)</h3>
+                    <p>Islamic prayers and supplications</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="fiqh">
+                    <i class="fas fa-balance-scale"></i>
+                    <h3>Fiqh (Jurisprudence)</h3>
+                    <p>Islamic law and rulings</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="aqeedah">
+                    <i class="fas fa-star-and-crescent"></i>
+                    <h3>Aqeedah (Belief)</h3>
+                    <p>Islamic creed and theology</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="seerah">
+                    <i class="fas fa-mosque"></i>
+                    <h3>Seerah (Biography)</h3>
+                    <p>Life of Prophet Muhammad (PBUH)</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="history">
+                    <i class="fas fa-landmark"></i>
+                    <h3>Islamic History</h3>
+                    <p>History of Islam and Muslims</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="character">
+                    <i class="fas fa-heart"></i>
+                    <h3>Islamic Character</h3>
+                    <p>Ethics, manners, and spirituality</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="family">
+                    <i class="fas fa-people-roof"></i>
+                    <h3>Family & Society</h3>
+                    <p>Marriage, parenting, and social life</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="dawah">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>Dawah (Invitation)</h3>
+                    <p>Calling to Islam</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="ramadan">
+                    <i class="fas fa-moon"></i>
+                    <h3>Ramadan & Fasting</h3>
+                    <p>The blessed month and fasting</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+                <div class="category-card" data-category="umrah">
+                    <i class="fas fa-kaaba"></i>
+                    <h3>Umrah & Hajj</h3>
+                    <p>Pilgrimage guides and rituals</p>
+                    <span class="book-count">0 Books</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Display Section -->
+    <section id="books" class="books-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Books</h2>
+                <div class="filter-controls">
+                    <select id="sortBy">
+                        <option value="title">Sort by Title</option>
+                        <option value="author">Sort by Author</option>
+                        <option value="recent">Recently Added</option>
+                    </select>
+                    <button id="viewToggle" class="view-toggle">
+                        <i class="fas fa-th"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="booksContainer" class="books-grid">
+                <!-- Books will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Authors Section -->
+    <section id="authors" class="authors-section">
+        <div class="container">
+            <h2 class="section-title">Browse by Author</h2>
+            <div id="authorsContainer" class="authors-grid">
+                <!-- Authors will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">About Islamic Books Library</h2>
+            <div class="about-content">
+                <p>Welcome to Islamic Books Library, your comprehensive digital resource for authentic Islamic literature. Our mission is to make Islamic knowledge accessible to everyone, anywhere in the world.</p>
+                <p>We offer a wide range of books covering various topics including Quran, Hadith, Fiqh, Seerah, and much more. Each book can be read online or downloaded for offline reading.</p>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-book-reader"></i>
+                        <h3>Read Online</h3>
+                        <p>Read books directly in your browser</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-download"></i>
+                        <h3>Download PDFs</h3>
+                        <p>Download books for offline reading</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-filter"></i>
+                        <h3>Easy Navigation</h3>
+                        <p>Browse by category or author</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-search"></i>
+                        <h3>Quick Search</h3>
+                        <p>Find exactly what you're looking for</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Modal for Reading -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalBookTitle"></h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfViewer" src=""></iframe>
+            </div>
+            <div class="modal-footer">
+                <button id="downloadBtn" class="btn-primary">
+                    <i class="fas fa-download"></i> Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Islamic Books Library. All rights reserved.</p>
+            <p>May Allah accept our efforts and benefit the Ummah</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

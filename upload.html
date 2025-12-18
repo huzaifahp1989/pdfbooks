@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Books - Islamic Books Library</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .upload-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .upload-form {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .form-group label .required {
+            color: #e74c3c;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .file-upload-area {
+            border: 3px dashed var(--primary-color);
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+            background: var(--bg-light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload-area:hover {
+            background: #e8f4f8;
+            border-color: var(--secondary-color);
+        }
+
+        .file-upload-area.dragover {
+            background: #d4e9f7;
+            border-color: var(--accent-color);
+        }
+
+        .file-upload-area i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .file-upload-area p {
+            color: var(--text-light);
+            margin: 0.5rem 0;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-info {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 5px;
+            display: none;
+        }
+
+        .file-info.active {
+            display: block;
+        }
+
+        .file-info .file-name {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .file-info .file-size {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .color-picker-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .color-picker-group input[type="color"] {
+            width: 60px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .color-preview {
+            width: 100px;
+            height: 40px;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .helper-text {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-book-quran"></i>
+                <h1>Islamic Books Library</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#categories">Categories</a></li>
+                    <li><a href="index.html#authors">Authors</a></li>
+                    <li><a href="upload.html" class="active">Upload Book</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Upload Section -->
+    <section class="upload-section" style="padding: 4rem 0; background: var(--bg-light); min-height: calc(100vh - 200px);">
+        <div class="upload-container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Library
+            </a>
+
+            <h2 class="section-title">Upload New Book</h2>
+
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i> Book uploaded successfully!
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-circle"></i> <span id="errorText"></span>
+            </div>
+
+            <form class="upload-form" id="uploadForm">
+                <!-- Book Title -->
+                <div class="form-group">
+                    <label for="bookTitle">Book Title <span class="required">*</span></label>
+                    <input type="text" id="bookTitle" name="bookTitle" required placeholder="Enter book title">
+                </div>
+
+                <!-- Author Name -->
+                <div class="form-group">
+                    <label for="authorName">Author Name</label>
+                    <input type="text" id="authorName" name="authorName" placeholder="Enter author name (optional)">
+                    <p class="helper-text">Leave empty if author is unknown</p>
+                </div>
+
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="category">Category <span class="required">*</span></label>
+                    <select id="category" name="category" required>
+                        <option value="">Select a category</option>
+                        <option value="quran">Quran & Tafsir</option>
+                        <option value="hadith">Hadith</option>
+                        <option value="salah">Salah (Prayer)</option>
+                        <option value="duas">Duas (Supplications)</option>
+                        <option value="fiqh">Fiqh (Jurisprudence)</option>
+                        <option value="aqeedah">Aqeedah (Belief)</option>
+                        <option value="seerah">Seerah (Biography)</option>
+                        <option value="history">Islamic History</option>
+                        <option value="character">Islamic Character</option>
+                        <option value="family">Family & Society</option>
+                        <option value="dawah">Dawah (Invitation)</option>
+                        <option value="ramadan">Ramadan & Fasting</option>
+                        <option value="umrah">Umrah & Hajj</option>
+                    </select>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" placeholder="Brief description of the book (optional)"></textarea>
+                </div>
+
+                <!-- Cover Color -->
+                <div class="form-group">
+                    <label for="coverColor">Cover Color</label>
+                    <div class="color-picker-group">
+                        <input type="color" id="coverColor" name="coverColor" value="#1a3a5c">
+                        <span>Choose a color for the book cover</span>
+                    </div>
+                </div>
+
+                <!-- File Upload -->
+                <div class="form-group">
+                    <label>PDF File <span class="required">*</span></label>
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Drop your PDF here or click to browse</h3>
+                        <p>No file size limit</p>
+                        <p class="helper-text">Supported format: PDF only</p>
+                    </div>
+                    <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" class="file-input" required>
+                    <div class="file-info" id="fileInfo">
+                        <div class="file-name"><i class="fas fa-file-pdf"></i> <span id="fileName"></span></div>
+                        <div class="file-size" id="fileSize"></div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    <i class="fas fa-upload"></i> Upload Book
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Islamic Books Library. All rights reserved.</p>
+            <p>May Allah accept our efforts and benefit the Ummah</p>
+        </div>
+    </footer>
+
+    <script src="upload.js"></script>
+</body>
+</html>
